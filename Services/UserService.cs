@@ -1,0 +1,67 @@
+using Microsoft.EntityFrameworkCore;
+using SampleDotNet6App.Data;
+using SampleDotNet6App.Models;
+
+namespace SampleDotNet6App.Services;
+
+public class UserService : IUserService
+{
+    private readonly ApplicationDbContext _context;
+
+    public UserService(ApplicationDbContext context)
+    {
+        _context = context;
+    }
+
+    public async Task<IEnumerable<User>> GetAllUsersAsync()
+    {
+        return await _context.Users.ToListAsync();
+    }
+
+    public async Task<User?> GetUserByIdAsync(int id)
+    {
+        return await _context.Users.FindAsync(id);
+    }
+
+    public async Task<User?> GetUserByEmailAsync(string email)
+    {
+        return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+    }
+
+    public async Task<User> CreateUserAsync(User user)
+    {
+        _context.Users.Add(user);
+        await _context.SaveChangesAsync();
+        return user;
+    }
+
+    public async Task<User?> UpdateUserAsync(int id, User user)
+    {
+        var existingUser = await _context.Users.FindAsync(id);
+        if (existingUser == null)
+        {
+            return null;
+        }
+
+        existingUser.Username = user.Username;
+        existingUser.Email = user.Email;
+        existingUser.PasswordHash = user.PasswordHash;
+        existingUser.IsActive = user.IsActive;
+
+        await _context.SaveChangesAsync();
+        return existingUser;
+    }
+
+    public async Task<bool> DeleteUserAsync(int id)
+    {
+        var user = await _context.Users.FindAsync(id);
+        if (user == null)
+        {
+            return false;
+        }
+
+        _context.Users.Remove(user);
+        await _context.SaveChangesAsync();
+        return true;
+    }
+}
