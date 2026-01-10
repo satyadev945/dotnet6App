@@ -13,7 +13,22 @@ builder.Services.AddControllers();
 
 // Entity Framework
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseInMemoryDatabase("SampleDb"));
+{
+    var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+    options.UseNpgsql(connectionString, npgsqlOptions =>
+    {
+        npgsqlOptions.EnableRetryOnFailure(
+            maxRetryCount: 5,
+            maxRetryDelay: TimeSpan.FromSeconds(30),
+            errorCodesToAdd: null);
+        npgsqlOptions.MigrationsHistoryTable("__ef_migrations_history", "public");
+    })
+    .UseSnakeCaseNamingConvention()
+    .EnableSensitiveDataLogging(builder.Environment.IsDevelopment())
+    .EnableDetailedErrors(builder.Environment.IsDevelopment());
+
+    AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+});
 
 // AutoMapper
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
