@@ -11,7 +11,7 @@ This is a comprehensive sample .NET 6 Web API application designed for testing v
 - **Swagger/OpenAPI** documentation
 - **CORS** support
 - **Structured logging**
-- **Comprehensive API endpoints** for products and users
+- **Comprehensive API endpoints** for products, users, and sample data
 - **Health check endpoints**
 
 ## Architecture
@@ -23,11 +23,18 @@ This is a comprehensive sample .NET 6 Web API application designed for testing v
 ### Controllers
 - `ProductsController` - CRUD operations for products with role-based access
 - `UsersController` - User registration, authentication, and profile management
+- `SampleController` - Sample endpoint demonstrating basic API patterns
+- `AuthController` - Authentication and token generation
 - `HealthController` - Health check endpoints
 
 ### Services
 - `IProductService` / `ProductService` - Business logic for product operations
 - `IUserService` / `UserService` - Business logic for user operations and authentication
+- `ISampleService` / `SampleService` - Business logic for sample message generation
+
+### DTOs
+- `SampleResponseDto` - Response model for sample endpoint with message and timestamp
+- `LoginRequest` / `LoginResponse` - Authentication request/response models
 
 ### Features Tested by Upgrade Tools
 - **Target Framework**: `net6.0`
@@ -68,9 +75,12 @@ The application seeds with these default users:
 ## API Endpoints
 
 ### Authentication
-- `POST /api/users/login` - User login
+- `POST /api/auth/login` - User login and JWT token generation
 - `POST /api/users/register` - User registration
 - `GET /api/users/profile` - Get current user profile
+
+### Sample (Requires Authentication)
+- `GET /api/sample` - Get sample message with timestamp
 
 ### Products (Requires Authentication)
 - `GET /api/products` - Get all products
@@ -108,6 +118,7 @@ This application includes various .NET 6 specific features and patterns that sho
 6. **Swagger**: Ensure API documentation generation continues to work
 7. **Logging**: Verify structured logging configuration
 8. **Configuration**: Check that configuration binding works correctly
+9. **DTOs**: Verify JSON serialization with custom property names
 
 ## Notes for Upgrade Testing
 
@@ -115,5 +126,6 @@ This application includes various .NET 6 specific features and patterns that sho
 - **JWT secrets** are configured for development (should be externalized in production)
 - **CORS** is configured to allow all origins for testing purposes
 - **Swagger** is enabled in all environments for testing (typically disabled in production)
+- **JSON serialization** uses custom property naming via `JsonPropertyName` attributes
 
 This sample provides a realistic scenario for testing automated upgrade tools while being simple enough to understand and debug any issues that arise during the upgrade process.
