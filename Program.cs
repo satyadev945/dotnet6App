@@ -21,6 +21,7 @@ builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 // Custom services
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IHealthService, HealthService>();
 
 // JWT Authentication
 var key = Encoding.ASCII.GetBytes(builder.Configuration["Jwt:Key"] ?? "your-256-bit-secret-key-here-make-it-long-enough");
