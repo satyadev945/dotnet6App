@@ -15,8 +15,8 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseInMemoryDatabase("SampleDb"));
 
-// AutoMapper
-builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+// AutoMapper - updated for AutoMapper 15.x API (AddAutoMapper no longer accepts Assembly directly)
+builder.Services.AddAutoMapper(cfg => cfg.AddMaps(Assembly.GetExecutingAssembly()));
 
 // Custom services
 builder.Services.AddScoped<IProductService, ProductService>();
