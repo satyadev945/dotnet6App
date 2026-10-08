@@ -1,14 +1,14 @@
-# Sample .NET 6 Application
+# Sample .NET 10 Application
 
-This is a comprehensive sample .NET 6 Web API application designed for testing version upgrade tools. It demonstrates common patterns and features used in real-world applications.
+This is a comprehensive sample .NET 10 Web API application designed for testing version upgrade tools. It demonstrates common patterns and features used in real-world applications.
 
 ## Features
 
-- **.NET 6 Web API** with minimal hosting model
-- **Entity Framework Core** with in-memory database
+- **.NET 10 Web API** with minimal hosting model
+- **Entity Framework Core 10** with in-memory database
 - **JWT Authentication** and role-based authorization
 - **AutoMapper** for object mapping
-- **Swagger/OpenAPI** documentation
+- **Built-in OpenAPI** documentation (ASP.NET Core 10 native, replaces Swashbuckle)
 - **CORS** support
 - **Structured logging**
 - **Comprehensive API endpoints** for products and users
@@ -30,18 +30,19 @@ This is a comprehensive sample .NET 6 Web API application designed for testing v
 - `IUserService` / `UserService` - Business logic for user operations and authentication
 
 ### Features Tested by Upgrade Tools
-- **Target Framework**: `net6.0`
-- **Package References**: EF Core 6.x, Authentication packages, etc.
+- **Target Framework**: `net10.0`
+- **Package References**: EF Core 10.x, Authentication packages, etc.
 - **Minimal Hosting Model**: Uses `WebApplication.CreateBuilder()`
 - **Global Using Directives**: Uses `ImplicitUsings` and `Nullable` features
 - **Configuration Pattern**: Uses the new configuration system
 - **Dependency Injection**: Uses built-in DI container
+- **Built-in OpenAPI**: Uses `AddOpenApi()` / `MapOpenApi()` (no Swashbuckle needed)
 
 ## Getting Started
 
 ### Prerequisites
-- .NET 6 SDK
-- Visual Studio 2022 or VS Code
+- .NET 10 SDK
+- Visual Studio 2022 (17.12+) or VS Code
 
 ### Running the Application
 
@@ -55,8 +56,8 @@ This is a comprehensive sample .NET 6 Web API application designed for testing v
    dotnet run
    ```
 
-3. **Open Swagger UI**:
-   Navigate to `https://localhost:7001/swagger` or `http://localhost:5001/swagger`
+3. **Open OpenAPI UI**:
+   Navigate to `https://localhost:7001/openapi/v1.json` or `http://localhost:5001/openapi/v1.json`
 
 ### Default Users
 
@@ -96,24 +97,34 @@ The application uses standard .NET configuration with these key sections:
 - `Logging` - Logging configuration
 - `ApiSettings` - Custom API settings
 
+## .NET 10 Upgrade Notes
+
+### Key Changes from .NET 6
+1. **TargetFramework**: Updated from `net6.0` → `net10.0`
+2. **EF Core**: Updated from `6.0.0` → `10.0.0`
+3. **JWT Bearer**: Updated from `6.0.0` → `10.0.0`
+4. **OpenAPI**: Replaced `Swashbuckle.AspNetCore` with ASP.NET Core 10 built-in OpenAPI (`AddOpenApi()` / `MapOpenApi()`)
+5. **AutoMapper**: Updated to `14.0.0`
+6. **Logging**: Updated `Microsoft.Extensions.Logging.Console` to `10.0.0`
+
 ## Testing Version Upgrades
 
-This application includes various .NET 6 specific features and patterns that should be tested during version upgrades:
+This application includes various .NET 10 specific features and patterns:
 
-1. **Framework Version**: Verify `<TargetFramework>net6.0</TargetFramework>` gets updated
-2. **Package Versions**: Check that all PackageReference versions are upgraded appropriately
-3. **Hosting Model**: Ensure minimal hosting model works with newer versions
-4. **Authentication**: Verify JWT authentication continues to work
-5. **Entity Framework**: Test that EF Core migrations and configurations work
-6. **Swagger**: Ensure API documentation generation continues to work
-7. **Logging**: Verify structured logging configuration
-8. **Configuration**: Check that configuration binding works correctly
+1. **Framework Version**: `<TargetFramework>net10.0</TargetFramework>`
+2. **Package Versions**: EF Core 10.x, Authentication packages at 10.x
+3. **Hosting Model**: Minimal hosting model works with .NET 10
+4. **Authentication**: JWT authentication continues to work
+5. **Entity Framework**: EF Core 10 with in-memory and SQL Server providers
+6. **OpenAPI**: Built-in ASP.NET Core 10 OpenAPI (no Swashbuckle dependency)
+7. **Logging**: Structured logging configuration
+8. **Configuration**: Configuration binding works correctly
 
-## Notes for Upgrade Testing
+## Notes
 
 - The application uses **in-memory database** for simplicity in testing
 - **JWT secrets** are configured for development (should be externalized in production)
 - **CORS** is configured to allow all origins for testing purposes
-- **Swagger** is enabled in all environments for testing (typically disabled in production)
+- **OpenAPI** endpoint is enabled in development environment via `MapOpenApi()`
 
 This sample provides a realistic scenario for testing automated upgrade tools while being simple enough to understand and debug any issues that arise during the upgrade process.
