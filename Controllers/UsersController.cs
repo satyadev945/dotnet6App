@@ -143,7 +143,7 @@ namespace SampleDotNet6App.Controllers
             {
                 FirstName = request.FirstName,
                 LastName = request.LastName,
-                Email = request.Email
+                Email = request.Email ?? string.Empty
             };
 
             var updated = await _userService.UpdateUserAsync(id, user);

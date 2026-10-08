@@ -15,8 +15,8 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseInMemoryDatabase("SampleDb"));
 
-// AutoMapper - object-to-object mapping
-builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+// AutoMapper 16.x - object-to-object mapping (new API: cfg action required as first arg)
+builder.Services.AddAutoMapper(cfg => { }, Assembly.GetExecutingAssembly());
 
 // Custom services
 builder.Services.AddScoped<IProductService, ProductService>();

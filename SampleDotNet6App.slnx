@@ -1,0 +1,6 @@
+<Solution>
+  <Folder Name="/Tests/">
+    <Project Path="Tests/SampleDotNet6App.Tests.csproj" />
+  </Folder>
+  <Project Path="SampleDotNet6App.csproj" />
+</Solution>
