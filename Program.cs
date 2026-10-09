@@ -42,22 +42,37 @@ builder.Services.AddAuthentication(x =>
     };
 });
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+// ASP.NET Core 10 built-in OpenAPI support (replaces Swashbuckle AddSwaggerGen)
+builder.Services.AddOpenApi(options =>
+{
+    options.AddDocumentTransformer((document, context, cancellationToken) =>
+    {
+        document.Info = new Microsoft.OpenApi.Models.OpenApiInfo
+        {
+            Title = "Sample .NET 10 API",
+            Version = "v1",
+            Description = "A sample API for testing version upgrades"
+        };
+        return Task.CompletedTask;
+    });
+});
+
+// Keep Swashbuckle for UI and JWT Bearer support in Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo 
-    { 
-        Title = "Sample .NET 6 API", 
+    c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+    {
+        Title = "Sample .NET 10 API",
         Version = "v1",
         Description = "A sample API for testing version upgrades"
     });
-    
+
     // Include XML comments
     var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
     c.IncludeXmlComments(xmlPath);
-    
+
     // JWT Bearer token support in Swagger
     c.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
     {
@@ -67,7 +82,7 @@ builder.Services.AddSwaggerGen(c =>
         Type = Microsoft.OpenApi.Models.SecuritySchemeType.Http,
         Scheme = "bearer"
     });
-    
+
     c.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
     {
         {
@@ -100,6 +115,10 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    // ASP.NET Core 10 built-in OpenAPI endpoint
+    app.MapOpenApi();
+
+    // Swashbuckle UI (compatible with .NET 10 via Swashbuckle.AspNetCore 8.x)
     app.UseSwagger();
     app.UseSwaggerUI();
 }
