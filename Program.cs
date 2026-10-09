@@ -2,8 +2,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using SampleDotNet6App.Data;
+using SampleDotNet6App.Mappings;
 using SampleDotNet6App.Services;
-using System.Reflection;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,8 +15,8 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseInMemoryDatabase("SampleDb"));
 
-// AutoMapper
-builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+// AutoMapper - use typeof(MappingProfile) for AutoMapper 15.x+ compatibility (Assembly overload removed)
+builder.Services.AddAutoMapper(cfg => cfg.AddMaps(typeof(MappingProfile)));
 
 // Custom services
 builder.Services.AddScoped<IProductService, ProductService>();
