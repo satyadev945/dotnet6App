@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using SampleDotNet6App.Data;
 using SampleDotNet6App.Services;
 using System.Reflection;
@@ -42,18 +43,41 @@ builder.Services.AddAuthentication(x =>
     };
 });
 
-// ASP.NET Core 10 built-in OpenAPI (replaces Swashbuckle AddSwaggerGen)
-builder.Services.AddOpenApi(options =>
+// Swagger / OpenAPI (Swashbuckle for .NET 8)
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(options =>
 {
-    options.AddDocumentTransformer((document, context, cancellationToken) =>
+    options.SwaggerDoc("v1", new OpenApiInfo
     {
-        document.Info = new Microsoft.OpenApi.Models.OpenApiInfo
+        Title = "Sample .NET 8 API",
+        Version = "v1",
+        Description = "A sample API for testing version upgrades"
+    });
+
+    // Include XML comments
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    if (File.Exists(xmlPath))
+        options.IncludeXmlComments(xmlPath);
+
+    // JWT Bearer security definition
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Description = "JWT Authorization header using the Bearer scheme.",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer"
+    });
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
         {
-            Title = "Sample .NET 10 API",
-            Version = "v1",
-            Description = "A sample API for testing version upgrades"
-        };
-        return Task.CompletedTask;
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" }
+            },
+            Array.Empty<string>()
+        }
     });
 });
 
@@ -73,8 +97,11 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    // ASP.NET Core 10 built-in OpenAPI endpoint (replaces UseSwagger/UseSwaggerUI)
-    app.MapOpenApi();
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Sample .NET 8 API v1");
+    });
 }
 
 app.UseHttpsRedirection();
