@@ -1,11 +1,11 @@
-# Sample .NET 6 Application
+# Sample .NET 8 Application
 
-This is a comprehensive sample .NET 6 Web API application designed for testing version upgrade tools. It demonstrates common patterns and features used in real-world applications.
+This is a comprehensive sample .NET 8 Web API application upgraded from .NET 6. It demonstrates common patterns and features used in real-world applications.
 
 ## Features
 
-- **.NET 6 Web API** with minimal hosting model
-- **Entity Framework Core** with in-memory database
+- **.NET 8 Web API** with minimal hosting model
+- **Entity Framework Core 8** with in-memory database
 - **JWT Authentication** and role-based authorization
 - **AutoMapper** for object mapping
 - **Swagger/OpenAPI** documentation
@@ -30,8 +30,8 @@ This is a comprehensive sample .NET 6 Web API application designed for testing v
 - `IUserService` / `UserService` - Business logic for user operations and authentication
 
 ### Features Tested by Upgrade Tools
-- **Target Framework**: `net6.0`
-- **Package References**: EF Core 6.x, Authentication packages, etc.
+- **Target Framework**: `net8.0`
+- **Package References**: EF Core 8.x, Authentication packages, etc.
 - **Minimal Hosting Model**: Uses `WebApplication.CreateBuilder()`
 - **Global Using Directives**: Uses `ImplicitUsings` and `Nullable` features
 - **Configuration Pattern**: Uses the new configuration system
@@ -40,7 +40,7 @@ This is a comprehensive sample .NET 6 Web API application designed for testing v
 ## Getting Started
 
 ### Prerequisites
-- .NET 6 SDK
+- .NET 8 SDK
 - Visual Studio 2022 or VS Code
 
 ### Running the Application
@@ -96,24 +96,22 @@ The application uses standard .NET configuration with these key sections:
 - `Logging` - Logging configuration
 - `ApiSettings` - Custom API settings
 
-## Testing Version Upgrades
+## .NET 8 Upgrade Notes
 
-This application includes various .NET 6 specific features and patterns that should be tested during version upgrades:
+This application was upgraded from .NET 6 to .NET 8 with the following changes:
 
-1. **Framework Version**: Verify `<TargetFramework>net6.0</TargetFramework>` gets updated
-2. **Package Versions**: Check that all PackageReference versions are upgraded appropriately
-3. **Hosting Model**: Ensure minimal hosting model works with newer versions
-4. **Authentication**: Verify JWT authentication continues to work
-5. **Entity Framework**: Test that EF Core migrations and configurations work
-6. **Swagger**: Ensure API documentation generation continues to work
-7. **Logging**: Verify structured logging configuration
-8. **Configuration**: Check that configuration binding works correctly
+1. **Framework Version**: Updated `<TargetFramework>net6.0</TargetFramework>` → `<TargetFramework>net8.0</TargetFramework>`
+2. **Package Versions**: All EF Core, ASP.NET Core, and related packages updated to `8.0.0`
+3. **JWT Validation**: Enhanced with issuer/audience validation and `ClockSkew = TimeSpan.Zero`
+4. **Performance**: Added `EnableRequestDelegateGenerator` for improved minimal API performance
+5. **Security**: Improved JWT token validation parameters for .NET 8 security standards
+6. **Database**: Connection string database names updated to reflect .NET 8 version
 
-## Notes for Upgrade Testing
+## Notes
 
 - The application uses **in-memory database** for simplicity in testing
 - **JWT secrets** are configured for development (should be externalized in production)
 - **CORS** is configured to allow all origins for testing purposes
-- **Swagger** is enabled in all environments for testing (typically disabled in production)
+- **Swagger** is enabled in development environment
 
 This sample provides a realistic scenario for testing automated upgrade tools while being simple enough to understand and debug any issues that arise during the upgrade process.

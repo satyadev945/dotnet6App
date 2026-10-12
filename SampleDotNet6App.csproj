@@ -6,20 +6,31 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+    <!-- .NET 8 performance and security improvements -->
+    <InvariantGlobalization>false</InvariantGlobalization>
+    <EnableRequestDelegateGenerator>true</EnableRequestDelegateGenerator>
+    <Optimize>true</Optimize>
   </PropertyGroup>
 
   <ItemGroup>
+    <!-- ASP.NET Core Authentication - .NET 8 compatible -->
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.0" />
+    <!-- Entity Framework Core 8.x packages -->
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.0" />
+    <!-- Logging - .NET 8 compatible -->
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="8.0.0" />
+    <!-- JSON serialization -->
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <!-- Swagger/OpenAPI - compatible with .NET 8 -->
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    <!-- JWT token handling - updated for .NET 8 compatibility -->
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.0.3" />
+    <!-- AutoMapper - .NET 8 compatible -->
     <PackageReference Include="AutoMapper" Version="12.0.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
   </ItemGroup>
