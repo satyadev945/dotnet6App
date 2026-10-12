@@ -29,10 +29,9 @@
     <!-- Swagger/OpenAPI - compatible with .NET 8 -->
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <!-- JWT token handling - updated for .NET 8 compatibility -->
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.0.3" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.23.0" />
     <!-- AutoMapper - .NET 8 compatible -->
-    <PackageReference Include="AutoMapper" Version="12.0.1" />
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="AutoMapper" Version="16.2.0" />
   </ItemGroup>
 
 </Project>
