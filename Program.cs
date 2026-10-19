@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using SampleDotNet6App.Data;
 using SampleDotNet6App.Services;
-using System.Reflection;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,12 +10,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllers();
 
-// Entity Framework
+// Entity Framework - updated to EF Core 10.x compatible with .NET 10
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseInMemoryDatabase("SampleDb"));
-
-// AutoMapper
-builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 // Custom services
 builder.Services.AddScoped<IProductService, ProductService>();
@@ -42,7 +38,7 @@ builder.Services.AddAuthentication(x =>
     };
 });
 
-// ASP.NET Core 10 built-in OpenAPI (replaces Swashbuckle AddSwaggerGen)
+// ASP.NET Core 10 built-in OpenAPI support (replaces Swashbuckle.AspNetCore)
 builder.Services.AddOpenApi(options =>
 {
     options.AddDocumentTransformer((document, context, cancellationToken) =>
@@ -56,9 +52,6 @@ builder.Services.AddOpenApi(options =>
         return Task.CompletedTask;
     });
 });
-
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddEndpointsApiExplorer();
 
 // CORS
 builder.Services.AddCors(options =>
@@ -76,12 +69,8 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    // ASP.NET Core 10 built-in OpenAPI endpoint (replaces UseSwagger/UseSwaggerUI)
+    // ASP.NET Core 10 built-in OpenAPI endpoint (replaces UseSwagger/UseSwaggerUI from Swashbuckle)
     app.MapOpenApi();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/openapi/v1.json", "Sample .NET 10 API v1");
-    });
 }
 
 app.UseHttpsRedirection();
