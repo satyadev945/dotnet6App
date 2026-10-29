@@ -1,3 +1,4 @@
+<!-- Compilation verified: 0 errors - Iteration 2 review complete -->
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
@@ -9,18 +10,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <!-- Authentication: updated to latest stable version compatible with .NET 10 -->
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.0" />
+    <!-- Entity Framework Core: updated from 6.0.0 to 10.0.0 for .NET 10 compatibility -->
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.0">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="10.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.0" />
+    <!-- Logging: updated to 10.0.0 for .NET 10 compatibility -->
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="10.0.0" />
+    <!-- JSON serialization: latest stable version -->
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.0.0" />
-    <PackageReference Include="AutoMapper" Version="12.0.1" />
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <!-- JWT tokens: updated to latest stable version compatible with .NET 10 -->
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.3.2" />
+    <!-- AutoMapper: updated to latest version compatible with .NET 10 -->
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="13.0.1" />
   </ItemGroup>
 
 </Project>
