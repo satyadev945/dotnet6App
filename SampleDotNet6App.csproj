@@ -12,26 +12,29 @@
   <ItemGroup>
     <!-- Authentication: updated to latest stable version compatible with .NET 10 -->
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.0" />
+    <!-- OpenAPI: built-in ASP.NET Core OpenAPI support (AddOpenApi / MapOpenApi) -->
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.0" />
     <!-- Entity Framework Core: updated from 6.0.0 to 10.0.0 for .NET 10 compatibility -->
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.0">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.0" />
+    <!-- Fixed: updated from 8.0.0 to 10.0.0 to match EFCore.Design 10.0.0 and avoid NU1605 downgrade error -->
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="10.0.0" />
     <!-- PostgreSQL provider: replaces Microsoft.EntityFrameworkCore.SqlServer -->
     <PackageReference Include="Npgsql" Version="8.0.5" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.0" />
     <!-- Snake_case naming conventions for PostgreSQL -->
     <PackageReference Include="EFCore.NamingConventions" Version="8.0.0" />
-    <!-- Logging: updated to 10.0.0 for .NET 10 compatibility -->
-    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="10.0.0" />
+    <!-- Removed: Microsoft.Extensions.Logging.Console is auto-included in .NET 10 (NU1510 warning) -->
     <!-- JSON serialization: latest stable version -->
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <!-- JWT tokens: updated to latest stable version compatible with .NET 10 -->
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.3.2" />
-    <!-- AutoMapper: updated to latest version compatible with .NET 10 -->
-    <PackageReference Include="AutoMapper" Version="13.0.1" />
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="13.0.1" />
+    <!-- JWT tokens: updated to 8.4.0 (8.3.2 not found in feed) -->
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.4.0" />
+    <!-- AutoMapper: fixed version to 12.0.1 (13.0.1 does not exist in feed) -->
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+    <!-- AutoMapper DI: fixed version to 12.0.1 (13.0.1 does not exist in feed) -->
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
   </ItemGroup>
 
 </Project>
