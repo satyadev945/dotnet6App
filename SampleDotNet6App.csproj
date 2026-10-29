@@ -17,8 +17,12 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="10.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.0" />
+    <!-- PostgreSQL provider: replaces Microsoft.EntityFrameworkCore.SqlServer -->
+    <PackageReference Include="Npgsql" Version="8.0.5" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.0" />
+    <!-- Snake_case naming conventions for PostgreSQL -->
+    <PackageReference Include="EFCore.NamingConventions" Version="8.0.0" />
     <!-- Logging: updated to 10.0.0 for .NET 10 compatibility -->
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="10.0.0" />
     <!-- JSON serialization: latest stable version -->
