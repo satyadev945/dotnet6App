@@ -1,10 +1,10 @@
-# Sample .NET 6 Application
+# Sample .NET 10 Application
 
-This is a comprehensive sample .NET 6 Web API application designed for testing version upgrade tools. It demonstrates common patterns and features used in real-world applications.
+This is a comprehensive sample .NET 10 Web API application designed for testing version upgrade tools. It demonstrates common patterns and features used in real-world applications.
 
 ## Features
 
-- **.NET 6 Web API** with minimal hosting model
+- **.NET 10 Web API** with minimal hosting model
 - **Entity Framework Core** with in-memory database
 - **JWT Authentication** and role-based authorization
 - **AutoMapper** for object mapping
@@ -30,8 +30,8 @@ This is a comprehensive sample .NET 6 Web API application designed for testing v
 - `IUserService` / `UserService` - Business logic for user operations and authentication
 
 ### Features Tested by Upgrade Tools
-- **Target Framework**: `net6.0`
-- **Package References**: EF Core 6.x, Authentication packages, etc.
+- **Target Framework**: `net10.0`
+- **Package References**: EF Core 10.x, Authentication packages, etc.
 - **Minimal Hosting Model**: Uses `WebApplication.CreateBuilder()`
 - **Global Using Directives**: Uses `ImplicitUsings` and `Nullable` features
 - **Configuration Pattern**: Uses the new configuration system
@@ -40,7 +40,7 @@ This is a comprehensive sample .NET 6 Web API application designed for testing v
 ## Getting Started
 
 ### Prerequisites
-- .NET 6 SDK
+- .NET 10 SDK
 - Visual Studio 2022 or VS Code
 
 ### Running the Application
@@ -98,9 +98,9 @@ The application uses standard .NET configuration with these key sections:
 
 ## Testing Version Upgrades
 
-This application includes various .NET 6 specific features and patterns that should be tested during version upgrades:
+This application includes various .NET 10 specific features and patterns that should be tested during version upgrades:
 
-1. **Framework Version**: Verify `<TargetFramework>net6.0</TargetFramework>` gets updated
+1. **Framework Version**: Verify `<TargetFramework>net10.0</TargetFramework>` gets updated
 2. **Package Versions**: Check that all PackageReference versions are upgraded appropriately
 3. **Hosting Model**: Ensure minimal hosting model works with newer versions
 4. **Authentication**: Verify JWT authentication continues to work
