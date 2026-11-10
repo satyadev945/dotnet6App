@@ -30,7 +30,7 @@ This is a comprehensive sample .NET 6 Web API application designed for testing v
 - `IUserService` / `UserService` - Business logic for user operations and authentication
 
 ### Features Tested by Upgrade Tools
-- **Target Framework**: `net6.0`
+- **Target Framework**: `net8.0`
 - **Package References**: EF Core 6.x, Authentication packages, etc.
 - **Minimal Hosting Model**: Uses `WebApplication.CreateBuilder()`
 - **Global Using Directives**: Uses `ImplicitUsings` and `Nullable` features
@@ -100,7 +100,7 @@ The application uses standard .NET configuration with these key sections:
 
 This application includes various .NET 6 specific features and patterns that should be tested during version upgrades:
 
-1. **Framework Version**: Verify `<TargetFramework>net6.0</TargetFramework>` gets updated
+1. **Framework Version**: Verify `<TargetFramework>net8.0</TargetFramework>` gets updated
 2. **Package Versions**: Check that all PackageReference versions are upgraded appropriately
 3. **Hosting Model**: Ensure minimal hosting model works with newer versions
 4. **Authentication**: Verify JWT authentication continues to work
