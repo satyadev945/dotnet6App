@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi;
 using SampleDotNet6App.Data;
 using SampleDotNet6App.Services;
 using System.Reflection;
@@ -46,7 +47,7 @@ builder.Services.AddAuthentication(x =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo 
+    c.SwaggerDoc("v1", new OpenApiInfo 
     { 
         Title = "Sample .NET 6 API", 
         Version = "v1",
@@ -59,27 +60,20 @@ builder.Services.AddSwaggerGen(c =>
     c.IncludeXmlComments(xmlPath);
     
     // JWT Bearer token support in Swagger
-    c.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Description = "JWT Authorization header using the Bearer scheme",
         Name = "Authorization",
-        In = Microsoft.OpenApi.Models.ParameterLocation.Header,
-        Type = Microsoft.OpenApi.Models.SecuritySchemeType.Http,
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.Http,
         Scheme = "bearer"
     });
     
-    c.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
+    c.AddSecurityRequirement(doc => new OpenApiSecurityRequirement
     {
         {
-            new Microsoft.OpenApi.Models.OpenApiSecurityScheme
-            {
-                Reference = new Microsoft.OpenApi.Models.OpenApiReference
-                {
-                    Type = Microsoft.OpenApi.Models.ReferenceType.SecurityScheme,
-                    Id = "Bearer"
-                }
-            },
-            Array.Empty<string>()
+            new OpenApiSecuritySchemeReference("Bearer"),
+            new List<string>()
         }
     });
 });
